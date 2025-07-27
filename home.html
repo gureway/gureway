@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GUREWAY - Soluções Conectadas</title>
+  <link rel="icon" type="image/png" href="assets/logo/logo-branco.png">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <style>
+    /* Reset e tipografia básica */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2f5f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    a { text-decoration: none; }
+
+    /* Container padrão */
+    .container {
+      width: 90%; max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Cabeçalho */
+    header {
+  background: #000;
+  position: fixed;
+  width: 100%; top: 0; left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.nav {
+  position: relative;          /* referência para o menu-toggle */
+  display: flex;
+  justify-content: center;     /* centraliza o logo no header */
+  align-items: center;
+  height: 70px;
+}
+.nav .menu-toggle {
+  position: absolute;
+  left: 20px;                  /* fixa o ícone à esquerda */
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.5em;
+  color: #fff;
+  z-index: 1100;
+}
+.nav .logo {
+  width: 100px;
+  height: auto;
+}
+.nav ul {
+  margin-left: auto;           /* empurra os links para a direita */
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+.nav ul li a {
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+    .nav ul li a:hover { color: #f1c40f; }
+    .nav .cta {
+      background: #25D366;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .nav .cta:hover { background: #1ebd5a; }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+      color: #fff;
+    }
+    .hero h1 { font-size: 3em; margin-bottom: 20px; animation: fadeInDown 1s; }
+    .hero p { font-size: 1.2em; margin-bottom: 30px; animation: fadeIn 1.2s; }
+    .hero .btn {
+      background: #f1c40f;
+      color: #000;
+      padding: 15px 40px;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: 600;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+    .hero .btn:hover { transform: translateY(-3px); }
+
+    /* Seções principais */
+    section {
+      padding: 100px 0;
+    }
+    .title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .title h2 {
+      font-size: 2.5em;
+      color: #111;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+    .title h2::after {
+      content: '';
+      position: absolute;
+      width: 50px;
+      height: 4px;
+      background: #f1c40f;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+    }
+
+    /* Serviços */
+    .services .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 30px;
+    }
+    .card {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .card img { width: 60px; margin-bottom: 20px; }
+    .card h3 { font-size: 1.3em; margin-bottom: 15px; }
+    .card p { font-size: 1em; color: #666; }
+
+    /* Como funciona */
+    .how-it-works .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .step {
+      background: #fff;
+      flex: 1 1 180px;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.07);
+      position: relative;
+      transition: transform 0.3s;
+    }
+    .step:hover { transform: translateY(-5px); }
+    .step::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -20px; left: 20px;
+      background: #f1c40f;
+      color: #000;
+      width: 40px; height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 50%;
+      font-weight: 700;
+    }
+    .step p { margin-top: 30px; color: #555; }
+
+    /* Testimonials Slider */
+    .testimonials {
+      background: #fff;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0;
+    }
+    .testimonials .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .testimonial {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 20px;
+      color: #555;
+    }
+    .testimonial h4 {
+      font-weight: 600;
+      color: #111;
+    }
+    .testimonial .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+    .testimonial .dot {
+      width: 12px; height: 12px;
+      background: #ccc;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .testimonial .dot.active { background: #f1c40f; }
+
+    /* Contato */
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+    .contact input, .contact textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    .contact button {
+      background: #25D366;
+      color: #fff;
+      padding: 15px;
+      border: none;
+      font-size: 1em;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .contact button:hover { background: #1ebd5a; }
+
+    /* Rodapé */
+    footer {
+      background: #000;
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+    }
+    footer p { margin: 10px 0; }
+
+    /* WhatsApp Float */
+    .whatsapp {
+      position: fixed;
+      bottom: 20px; right: 20px;
+      z-index: 999;
+      transition: transform 0.3s;
+    }
+    .whatsapp img:hover { transform: scale(1.1); }
+
+    /* Animações */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .nav ul { display: none; }
+      .nav .menu-toggle { display: block; cursor: pointer; }
+      .nav.responsive ul { display: flex; flex-direction: column; background: #000; position: absolute; top: 70px; width: 100%; left: 0; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Cabeçalho -->
+  <header>
+    <div class="container nav">
+      <img src="assets/logo/logo-branco.png" alt="Logo GUREWAY" class="logo">
+      <ul>
+        <li><a href="home.html">Inicio</a></li>
+        <li><a href="quemsomos.html">Quem Somos</a></li>
+        <li><a href="servicos.html">Serviços</a></li>
+        <li><a href="https://wa.me/5511947645049" class="cta">WhatsApp</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div>
+      <h1>Esta com um problema?<br>Nós temos a solução.</h1>
+      <p>Conectamos você aos profissionais ideais, sem burocracia e com atendimento 100% personalizado.</p>
+      <a href="https://wa.me/5511947645049" class="btn">Fale agora no WhatsApp</a>
+    </div>
+  </section>
+
+  <!-- Serviços -->
+  <section id="services" class="services container">
+    <div class="title"><h2>Nossos Serviços</h2></div>
+    <div class="cards">
+      <div class="card">
+        <img src="assets/icones/advogado.svg" alt="Advogados">
+        <h3>Advogados</h3>
+        <p>Assessoria jurídica completa para seu caso.</p>
+      </div>
+      <div class="card">
+        <img src="assets/icones/eletricista.svg" alt="Eletricistas">
+        <h3>Eletricistas</h3>
+        <p>Serviços elétricos residenciais e comerciais.</p>
+      </div>
+      <div class="card">
+        <img src="assets/icones/mecanico.svg" alt="Mecânicos">
+        <h3>Mecânicos</h3>
+        <p>Conserto e manutenção de automóveis.</p>
+      </div>
+      <div class="card">
+        <img src="assets/icones/consultor.svg" alt="Consultores">
+        <h3>Consultoria</h3>
+        <p>Orientações especializadas para seu negócio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como Funciona -->
+  <section id="how" class="how-it-works">
+    <div class="container">
+      <div class="title"><h2>Como Funciona</h2></div>
+      <div class="steps">
+        <div class="step" data-step="1"><p>Chame a gente no WhatsApp e explique o que precisa.</p></div>
+        <div class="step" data-step="2"><p>Receba um diagnóstico gratuito e personalizado.</p></div>
+        <div class="step" data-step="3"><p>Selecionamos o profissional ideal para o seu caso.</p></div>
+        <div class="step" data-step="4"><p>Validamos a solução com você antes de executar.</p></div>
+        <div class="step" data-step="5"><p>Conectamos você e fechamos o serviço.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section id="testimonials" class="testimonials">
+    <div class="slider">
+      <div class="testimonial">
+        <p>"A GUREWAY me ajudou a encontrar um eletricista confiável em minutos!"</p>
+        <h4>– João Silva</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Já contratei consultoria para minha empresa e o atendimento foi impecável."</p>
+        <h4>– Maria Oliveira</h4>
+      </div>
+      <div class="testimonial">
+        <p>"Resolvi minha questão jurídica sem dores de cabeça. Recomendo!"</p>
+        <h4>– Pedro Santos</h4>
+      </div>
+    </div>
+    <div class="dots"></div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contact" class="contact container">
+    <div class="title"><h2>Entre em Contato</h2></div>
+    <form action="https://formsubmit.co/assistentevirtualdofuturo@gmail.com" method="POST">
+  <input type="text" name="name" placeholder="Seu nome" required>
+  <input type="telefone" name="telefone" placeholder="Seu telefone (ex.: (11) 94764-5049)" required>
+  <input type="message" placeholder="Descreva seu problema" required>
+  
+  <!-- Extras -->
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_next" value="http://127.0.0.1:5500/obrigado.html">
+  
+  <button type="submit">Enviar Mensagem</button>
+    </form>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 GUREWAY. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <div class="whatsapp">
+    <a href="https://wa.me/5511947645049" target="_blank">
+      <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Menu mobile toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('header .nav');
+    menuToggle.addEventListener('click', () => nav.classList.toggle('responsive'));
+
+    // Testimonials slider
+    const slider = document.querySelector('.slider');
+    const slides = document.querySelectorAll('.testimonial');
+    const dotsContainer = document.querySelector('.dots');
+    let currentIndex = 0;
+
+    function createDots() {
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function goToSlide(index) {
+      slider.style.transform = `translateX(-${index * 100}%)`;
+      document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+      document.querySelectorAll('.dot')[index].classList.add('active');
+      currentIndex = index;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % slides.length;
+      goToSlide(currentIndex);
+    }
+
+    createDots();
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>
