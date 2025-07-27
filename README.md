@@ -36,7 +36,7 @@ A GUREWAY faz intermediação de serviços em geral, conectando usuários a prof
 
 ## Páginas
 
-- **home.html**  
+- **index.html**  
   Página inicial com header fixo, seção Hero, teaser de serviços, depoimentos e call‑to‑action.  
 - **servicos.html**  
   Detalhamento dos serviços (jurídico, fretes & mudanças, serviços gerais), grid de cards, depoimentos, parceiros, FAQ e formulário de contato.  
