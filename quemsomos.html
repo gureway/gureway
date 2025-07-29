@@ -26,6 +26,14 @@
     .nav .cta { background: #25D366; color: #fff; padding: 10px 20px; border-radius: 6px; font-weight: 600; transition: background 0.3s;  margin-left: 30px; }
     .nav .cta:hover { background: #1ebd5a; }
 
+    /* ADIÇÃO HAMBURGUER */
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+
     /* Espaço para header */
     main { padding-top: 100px; }
 
@@ -54,12 +62,42 @@
     .whatsapp-float { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
     .whatsapp-float img { width: 48px; height: 48px; transition: transform 0.2s; }
     .whatsapp-float img:hover { transform: scale(1.1); }
+
+    /* ADIÇÃO HAMBURGUER - Responsividade */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+      }
+      .nav ul {
+        display: none;
+        flex-direction: column;
+        gap: 20px;
+        background-color: #1E1E1E;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .nav.responsive ul {
+        display: flex;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="container nav">
+      <!-- ADIÇÃO HAMBURGUER -->
+      <div class="menu-toggle">&#9776;</div>
+
       <img src="assets/logo/logo-branco.png" alt="Logo GUREWAY" class="logo">
       <ul>
         <li><a href="index.html">Início</a></li>
@@ -127,5 +165,15 @@
       <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp">
     </a>
   </div>
+
+  <!-- ADIÇÃO HAMBURGUER -->
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+
+    menuToggle.addEventListener('click', () => {
+      nav.classList.toggle('responsive');
+    });
+  </script>
 </body>
 </html>
